@@ -1,0 +1,261 @@
+package frames;
+
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+
+//MCQ's Examination
+class quiz extends JFrame implements ActionListener {
+
+	private static final long serialVersionUID = 1L;
+	private JPanel contentPane;
+    private JLabel qnum,time, question;
+    private JRadioButton button1, button2, button3, button4;
+    private JButton btnSubmit, btnSave;
+    private ButtonGroup bg;
+    private Timer timer;
+    private int timeRemaining = 60;
+    private int currentQuestion = 0;
+    public int score = 0;
+    private long startTime;
+
+    private String[][] questions = new String[10][5];
+    private String[][] answers = new String[10][2];
+    private String[][] userAnswers = new String[10][1];
+
+    private JLabel lblScore;
+   
+
+    public quiz() {
+    	setTitle("Java Examination");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setBounds(100, 100, 671, 348);
+        contentPane = new JPanel();
+        contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+
+        setContentPane(contentPane);
+        contentPane.setLayout(null);
+
+        qnum = new JLabel("");
+        qnum.setFont(new Font("Segoe UI Historic", Font.PLAIN,18));
+        qnum.setBounds(40, 10, 181, 27);
+        contentPane.add(qnum);
+
+        time = new JLabel("");
+        time.setFont(new Font("Segoe UI Historic", Font.BOLD, 20));
+        time.setBounds(478, 10, 181, 27);
+        contentPane.add(time);
+        
+        question = new JLabel("");
+        question.setFont(new Font("Segoe UI Historic", Font.BOLD, 20));
+        question.setBounds(41, 43, 717, 38);
+        contentPane.add(question);
+
+        button1 = new JRadioButton("");
+        button1.setFont(new Font("Tahoma", Font.PLAIN, 18));
+        button1.setBounds(43, 87, 339, 21);
+        contentPane.add(button1);
+
+        button2 = new JRadioButton("");
+        button2.setFont(new Font("Tahoma", Font.PLAIN, 18));
+        button2.setBounds(43, 123, 353, 21);
+        contentPane.add(button2);
+
+        button3 = new JRadioButton("");
+        button3.setFont(new Font("Tahoma", Font.PLAIN, 18));
+        button3.setBounds(43, 158, 353, 21);
+        contentPane.add(button3);
+
+        button4 = new JRadioButton("");
+        button4.setFont(new Font("Tahoma", Font.PLAIN, 18));
+        button4.setBounds(43, 191, 353, 21);
+        contentPane.add(button4);
+
+        bg = new ButtonGroup();
+        bg.add(button1);
+        bg.add(button2);
+        bg.add(button3);
+        bg.add(button4);
+
+        btnSubmit = new JButton("Submit");
+        btnSubmit.setFont(new Font("Segoe UI Historic", Font.PLAIN, 15));
+        btnSubmit.setBounds(346, 254, 97, 27);
+       
+        btnSubmit.addActionListener(this);
+        contentPane.add(btnSubmit);
+
+        btnSave = new JButton("Save");
+        btnSave.setFont(new Font("Segoe UI Historic", Font.PLAIN, 15));
+        btnSave.setBounds(228, 254, 97, 27);
+        btnSave.addActionListener(this);
+        contentPane.add(btnSave);
+
+        lblScore = new JLabel("");
+        lblScore.setFont(new Font("Segoe UI Historic", Font.BOLD, 20));
+        lblScore.setBounds(10, 254, 200, 27);
+        contentPane.add(lblScore);
+
+
+
+        questions[0][0] = "Who invented Java Programming?";
+        questions[0][1] = "Guido Van Rossum";
+        questions[0][2] = "James Gosling";
+        questions[0][3] = "Dennie Ritchie";
+        questions[0][4] = "Bjarne Stroustrup";
+        
+        questions[1][0] = "How many primitive datatypes are there in java?";
+        questions[1][1] = "6";
+        questions[1][2] = "7";
+        questions[1][3] = "8";
+        questions[1][4] = "9";
+
+        questions[2][0] = "Which of the following is not a OOPS concept in java?";
+        questions[2][1] = "Polymorphism";
+        questions[2][2] = "Inheritance";
+        questions[2][3] = "Compilation";
+        questions[2][4] = "Encapsulation";
+
+        questions[3][0] = "Arrays in java are?";
+        questions[3][1] = "Object References";
+        questions[3][2] = "objects";
+        questions[3][3] = "Primitive datatypes";
+        questions[3][4] = "None";
+
+        questions[4][0] = "In which of the following is toString() method defined?";
+        questions[4][1] = "java.lang.Object";
+        questions[4][2] = "java.lang.String";
+        questions[4][3] = "java.lang.util";
+        questions[4][4] = "None";
+
+        questions[5][0] = "Which package contains the Random class?";
+        questions[5][1] = "java.util package";
+        questions[5][2] = "java.lang package";
+        questions[5][3] = "java.awt package";
+        questions[5][4] = "java.io package";
+
+        questions[6][0] = "Which keyword is used for accessing the features of a package?";
+        questions[6][1] = "import";
+        questions[6][2] = "package";
+        questions[6][3] = "extends";
+        questions[6][4] = "export";
+
+        questions[7][0] = "Total constructors string class have?";
+        questions[7][1] = "10 ";
+        questions[7][2] = "3";
+        questions[7][3] = "13";
+        questions[7][4] = "6";
+
+        questions[8][0] = "Identify the modifier which cannot be used for constructor.";
+        questions[8][1] = "public";
+        questions[8][2] = "private";
+        questions[8][3] = "protected";
+        questions[8][4] = "static";
+
+        questions[9][0] = "Which is used to find and fix bugs in a program? ";
+        questions[9][1] = "JRE";
+        questions[9][2] = "JDK";
+        questions[9][3] = "JDB";
+        questions[9][4] = "JVM";
+ 
+        
+
+        answers[0][1] = "James Gosling";
+        answers[1][1] = "8";
+        answers[2][1] = "Compilation";
+        answers[3][1] = "objects";
+        answers[4][1] = "java.lang.Object";
+        answers[5][1] = "java.util package";
+        answers[6][1] = "import";
+        answers[7][1] = "13";
+        answers[8][1] = "static";
+        answers[9][1] = "JDB";
+
+        start(0);
+        setVisible(true);
+        startTimer();
+    }
+
+    private void start(int i) {
+    	
+        qnum.setText("Question" + (i + 1) + ".");
+        question.setText(questions[i][0]);
+        button1.setText(questions[i][1]);
+        button1.setActionCommand(questions[i][1]);
+        button2.setText(questions[i][2]);
+        button2.setActionCommand(questions[i][2]);
+        button3.setText(questions[i][3]);
+        button3.setActionCommand(questions[i][3]);
+        button4.setText(questions[i][4]);
+        button4.setActionCommand(questions[i][4]);
+
+        bg.clearSelection();
+
+ 
+    
+    }
+    
+    
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == btnSave) {
+            if (bg.getSelection() != null) {
+                String selectedAnswer = bg.getSelection().getActionCommand();
+                if (selectedAnswer.equals(answers[currentQuestion][1])) {
+                    score++;
+                }
+            }
+            userAnswers[currentQuestion][0] = bg.getSelection() != null ? bg.getSelection().getActionCommand() : null;
+            currentQuestion++;
+            if (currentQuestion < 10) {
+                start(currentQuestion);
+            } 
+        }
+        
+        else if (e.getSource() == btnSave) {
+            userAnswers[currentQuestion][0] = bg.getSelection() != null ? bg.getSelection().getActionCommand() : null;
+            currentQuestion++;
+            if (currentQuestion < 10) {
+                start(currentQuestion);
+            } 
+        }
+        
+        else if(currentQuestion==10)
+        {
+            if(e.getSource()==btnSubmit)
+            {
+                timer.stop(); 
+                showResults();
+            }
+        }
+    }
+
+    
+    public void startTimer() {
+        startTime = System.currentTimeMillis();
+        timer = new Timer(1000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                timeRemaining--;
+                time.setText("Time Left: " + timeRemaining + " sec");
+                if (timeRemaining == 0) {
+                    timer.stop();
+                    showResults();
+                }
+            }
+        });
+        timer.start();
+    }
+
+    private void showResults() {
+        long endTime = System.currentTimeMillis();
+        long timeTaken = (endTime - startTime) / 1000; // Calculate the time taken in seconds
+
+        String message = "Quiz completed!\n\n";
+        message += "Your score: " + score + " out of 10\n";
+        message += "Time taken: " + timeTaken + " seconds";
+
+        JOptionPane.showMessageDialog(this, message, "Quiz Results", JOptionPane.INFORMATION_MESSAGE);
+        dispose();
+    }
+}
