@@ -1,0 +1,256 @@
+package frames;
+
+import java.awt.Color;
+import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+
+//Login Page
+class LoginDetails extends JFrame implements ActionListener {
+	private static final long serialVersionUID = 1L;
+    private JPanel contentPane;
+    private JTextField textField;
+    private JPasswordField passwordField;
+
+    LoginDetails() {
+        setTitle("Online Examination - Login Form");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setBounds(100, 100, 548, 310);
+        contentPane = new JPanel();
+        contentPane.setBackground(new Color(223, 221, 223));
+
+
+        setContentPane(contentPane);
+        contentPane.setLayout(null);
+
+        JLabel lblNewLabel_2 = new JLabel("Candidate Login");
+        lblNewLabel_2.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 21));
+        lblNewLabel_2.setBounds(179, 23, 170, 34);
+        contentPane.add(lblNewLabel_2);
+
+        JLabel lblNewLabel = new JLabel("User Name:");
+        lblNewLabel.setFont(new Font("Arial Narrow", Font.BOLD, 22));
+        lblNewLabel.setBounds(31, 84, 108, 34);
+        contentPane.add(lblNewLabel);
+
+        textField = new JTextField();
+        textField.setFont(new Font("Tahoma", Font.PLAIN, 21));
+        textField.setBounds(149, 86, 253, 30);
+        contentPane.add(textField);
+        textField.setColumns(10);
+
+        JLabel lblNewLabel_1 = new JLabel("Password:");
+        lblNewLabel_1.setFont(new Font("Arial Narrow", Font.BOLD, 22));
+        lblNewLabel_1.setBounds(31, 139, 108, 24);
+        contentPane.add(lblNewLabel_1);
+
+        JButton btnNewButton = new JButton("LOGIN");
+        btnNewButton.setBackground(new Color(74, 179, 105));
+        btnNewButton.setFont(new Font("Times New Roman", Font.BOLD, 18));
+        btnNewButton.setBounds(193, 191, 118, 30);
+        btnNewButton.addActionListener(this);
+        contentPane.add(btnNewButton);
+
+        passwordField = new JPasswordField();
+        passwordField.setBounds(149, 133, 253, 30);
+        contentPane.add(passwordField);
+    }
+
+   
+    public void actionPerformed(ActionEvent e) {
+        String passValue = new String(passwordField.getPassword());
+
+        if (!passValue.isEmpty()) {
+            dispose(); 
+
+            
+            SwingUtilities.invokeLater(new Runnable() {
+                public void run() {
+                    basicpage frame = new basicpage();
+                    frame.setVisible(true);
+                }
+            });
+        } 
+    }
+}
+
+
+
+class basicpage extends JFrame implements ActionListener {
+	private static final long serialVersionUID = 1L;
+	private JPanel contentPane;
+public basicpage() {
+	setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	setBounds(100, 100, 450, 300);
+	contentPane = new JPanel();
+	contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+
+	setContentPane(contentPane);
+	contentPane.setLayout(null);
+	
+	JButton btnNewButton_1 = new JButton("LOG OUT");
+	btnNewButton_1.setFont(new Font("Segoe UI Semilight", Font.BOLD, 18));
+	btnNewButton_1.setBounds(134, 152, 189, 38);
+	contentPane.add(btnNewButton_1);
+	btnNewButton_1.addActionListener(this);
+	
+	JButton btnNewButton_2 = new JButton("MCQ's EXAMINATION");
+	btnNewButton_2.setFont(new Font("Tahoma", Font.BOLD, 18));
+	btnNewButton_2.setBounds(86, 90, 293, 38);
+	contentPane.add(btnNewButton_2);
+	btnNewButton_2.addActionListener(this);
+	
+	JButton btnNewButton = new JButton("USER DETAILS");
+	btnNewButton.setFont(new Font("Segoe UI Semilight", Font.BOLD, 18));
+	btnNewButton.setBounds(134, 28, 189, 38);
+	contentPane.add(btnNewButton);
+	btnNewButton.addActionListener(this);
+}
+
+	public void actionPerformed(ActionEvent e) {
+		
+     // Create a new profile frame when the "User Details" button is clicked	
+	 if (e.getActionCommand().equals("USER DETAILS")) {
+	        profile profileFrame = new profile();
+	        profileFrame.setVisible(true);
+	 }
+	 
+	 else if (e.getActionCommand().equals("LOG OUT")) {
+              dispose();
+	 }
+	 
+	// Create a new examination frame when the "MCQ's Examination" button is clicked
+	 else if(e.getActionCommand().equals("MCQ's EXAMINATION")) {
+		 quiz frame =new quiz();
+		 frame.setVisible(true);
+	 }
+	 }	
+}
+
+               
+
+//User Details
+class profile extends JFrame {
+
+	private static final long serialVersionUID = 1L;
+	private JPanel contentPane;
+    private JTextField textField;
+    private JTextField textField_1;
+    private JTextField textField_2;
+    private JTextField textField_3;
+
+    profile() {
+        setForeground(new Color(150, 155, 248));
+        setBackground(new Color(64, 0, 128));
+        setTitle("Candidate Profile");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setBounds(100, 100, 435, 366);
+        contentPane = new JPanel();
+        contentPane.setBackground(new Color(234, 244, 255));
+        
+
+        setContentPane(contentPane);
+        contentPane.setLayout(null);
+
+        JLabel lblNewLabel = new JLabel("Profile");
+        lblNewLabel.setBounds(168, 23, 86, 26);
+        lblNewLabel.setForeground(new Color(0, 0, 160));
+        lblNewLabel.setFont(new Font("Times New Roman", Font.BOLD, 22));
+        contentPane.add(lblNewLabel);
+
+        JLabel lblNewLabel_1 = new JLabel("Name");
+        lblNewLabel_1.setForeground(new Color(0, 64, 128));
+        lblNewLabel_1.setFont(new Font("Segoe UI Semibold", Font.BOLD, 15));
+        lblNewLabel_1.setBounds(41, 72, 91, 16);
+        contentPane.add(lblNewLabel_1);
+
+        textField = new JTextField();
+        textField.setBounds(142, 73, 194, 21);
+        contentPane.add(textField);
+        textField.setColumns(10);
+
+        JLabel lblNewLabel_2 = new JLabel("Email :");
+        lblNewLabel_2.setForeground(new Color(0, 64, 128));
+        lblNewLabel_2.setFont(new Font("Segoe UI Semibold", Font.BOLD, 15));
+        lblNewLabel_2.setBounds(41, 158, 230, 13);
+        contentPane.add(lblNewLabel_2);
+
+        textField_1 = new JTextField();
+        textField_1.setBounds(142, 158, 194, 19);
+        contentPane.add(textField_1);
+        textField_1.setColumns(10);
+
+        JLabel lblNewLabel_4 = new JLabel("Mobile :");
+        lblNewLabel_4.setForeground(new Color(0, 64, 128));
+        lblNewLabel_4.setFont(new Font("Segoe UI Semibold", Font.BOLD, 15));
+        lblNewLabel_4.setBounds(41, 191, 84, 26);
+        contentPane.add(lblNewLabel_4);
+
+        textField_2 = new JTextField();
+        textField_2.setBounds(142, 198, 194, 19);
+        contentPane.add(textField_2);
+        textField_2.setColumns(10);
+
+
+        JLabel lblNewLabel_6 = new JLabel(" DOB :");
+        lblNewLabel_6.setForeground(new Color(0, 64, 128));
+        lblNewLabel_6.setFont(new Font("Segoe UI Semibold", Font.BOLD, 15));
+        lblNewLabel_6.setBounds(40, 116, 132, 13);
+        contentPane.add(lblNewLabel_6);
+
+        textField_3 = new JTextField();
+        textField_3.setBounds(142, 116, 194, 19);
+        contentPane.add(textField_3);
+        textField_3.setColumns(10);
+
+        JButton btnNewButton = new JButton("SUBMIT");
+        btnNewButton.setBackground(new Color(100, 107, 244));
+        btnNewButton.setFont(new Font("Segoe UI Semibold", Font.BOLD, 17));
+        btnNewButton.setBounds(147, 248, 107, 33);
+        contentPane.add(btnNewButton);
+        
+        btnNewButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // Close the current profile frame
+                dispose();
+
+                // Open the basicpage frame
+                SwingUtilities.invokeLater(new Runnable() {
+                    public void run() {
+                        basicpage frame = new basicpage();
+                        frame.setVisible(true);
+                    }
+                });
+            }
+        });
+    
+}
+}
+
+
+
+
+
+public class OnlineRegistration {
+
+    public static void main(String[] args) {
+        EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                try {
+                    LoginDetails frame = new LoginDetails();
+                    frame.setVisible(true);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+}
+
+
+
+
+
